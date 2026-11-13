@@ -1,0 +1,10 @@
+node_modules/
+dist/
+index.html
+public/light/
+public/dark/
+public/third-party-licenses.txt
+*.log
+.env
+.env.*
+.DS_Store

@@ -1,0 +1,300 @@
+.page {
+  min-block-size: 100dvh;
+  color: var(--brand-color-text-default);
+  font-family: var(--brand-fontStack-sansSerif);
+}
+
+.page :is(a, button, summary):focus-visible {
+  outline: var(--brand-borderWidth-thick) solid var(--brand-color-focus);
+  outline-offset: var(--base-size-4);
+}
+
+.container {
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: var(--base-size-32);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items: end;
+  gap: var(--base-size-64);
+  padding-block: var(--base-size-64) var(--base-size-40);
+}
+
+.title {
+  text-wrap: balance;
+}
+
+.introAside {
+  padding-block-end: var(--base-size-8);
+}
+
+.description {
+  max-width: 28rem;
+}
+
+.specification {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-size-16);
+  margin-block-start: var(--base-size-24);
+}
+
+.specification span + span {
+  border-inline-start: var(--brand-borderWidth-thin) solid var(--brand-color-border-muted);
+  padding-inline-start: var(--base-size-16);
+}
+
+.gallery {
+  scroll-margin-top: var(--base-size-32);
+}
+
+.toolbar,
+.galleryStatus,
+.cardDetails,
+.cardTitle,
+.cardMeta,
+.cardActions {
+  display: flex;
+  align-items: center;
+}
+
+.toolbar,
+.galleryStatus,
+.cardDetails {
+  justify-content: space-between;
+  gap: var(--base-size-16);
+}
+
+.toolbar {
+  padding-block-end: var(--base-size-16);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-size-4);
+}
+
+.filter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--base-size-8);
+  min-height: var(--base-size-48);
+  padding: var(--base-size-8) var(--base-size-16);
+  border: var(--brand-borderWidth-thin) solid transparent;
+  border-radius: var(--brand-borderRadius-medium);
+  font: inherit;
+  font-size: var(--brand-text-size-200);
+  color: var(--brand-color-text-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.filter:hover,
+.iconButton:hover {
+  color: var(--brand-color-text-default);
+  background: var(--brand-color-canvas-subtle);
+}
+
+.filter[aria-pressed="true"] {
+  color: var(--brand-color-text-default);
+  border-color: var(--brand-color-border-muted);
+  background: var(--brand-color-canvas-subtle);
+}
+
+.count {
+  font-size: var(--brand-text-size-100);
+  color: var(--brand-color-text-muted);
+}
+
+.galleryStatus {
+  min-height: var(--base-size-40);
+  margin-block-end: var(--base-size-8);
+}
+
+.copyStatus,
+.copyError {
+  margin: 0;
+  font-size: var(--brand-text-size-100);
+}
+
+.copyStatus {
+  color: var(--brand-color-text-muted);
+}
+
+.copyError {
+  color: var(--brand-color-text-default);
+}
+
+.imageGrid {
+  border-block-start: var(--brand-borderWidth-thin) solid var(--brand-color-border-muted);
+  border-inline-start: var(--brand-borderWidth-thin) solid var(--brand-color-border-muted);
+}
+
+.imageGrid .imageCell {
+  min-width: 0;
+  padding: var(--base-size-24);
+  border-block-end: var(--brand-borderWidth-thin) solid var(--brand-color-border-muted);
+  border-inline-end: var(--brand-borderWidth-thin) solid var(--brand-color-border-muted);
+}
+
+.study {
+  min-width: 0;
+}
+
+.imageLink {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+}
+
+.imageLink img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.imageAction {
+  position: absolute;
+  inset-inline-end: var(--base-size-12);
+  inset-block-end: var(--base-size-12);
+  display: flex;
+  align-items: center;
+  gap: var(--base-size-8);
+  padding: var(--base-size-8) var(--base-size-12);
+  border: var(--brand-borderWidth-thin) solid var(--brand-color-border-muted);
+  border-radius: var(--brand-borderRadius-small);
+  color: var(--brand-color-text-default);
+  background: var(--brand-color-canvas-default);
+  font-size: var(--brand-text-size-100);
+}
+
+.imageLink:hover .imageAction {
+  text-decoration: underline;
+  text-underline-offset: var(--base-size-4);
+}
+
+.cardDetails {
+  padding-block-start: var(--base-size-24);
+}
+
+.cardTitle {
+  gap: var(--base-size-12);
+}
+
+.studyNumber {
+  font-variant-numeric: tabular-nums;
+}
+
+.cardMeta {
+  gap: var(--base-size-8);
+  margin-block-start: var(--base-size-8);
+}
+
+.cardActions {
+  gap: var(--base-size-4);
+}
+
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--base-size-44);
+  height: var(--base-size-44);
+  border: 0;
+  border-radius: var(--brand-borderRadius-medium);
+  color: var(--brand-color-text-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.instructions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--base-size-80);
+  padding-block: var(--base-size-96);
+  scroll-margin-top: var(--base-size-32);
+}
+
+.instructionsIntro {
+  max-width: 25rem;
+  margin-block-start: var(--base-size-24);
+}
+
+.steps {
+  margin: 0;
+  padding-inline-start: var(--base-size-24);
+}
+
+.steps li {
+  padding-inline-start: var(--base-size-12);
+}
+
+.steps li + li {
+  margin-block-start: var(--base-size-32);
+}
+
+.steps p {
+  margin-block-start: var(--base-size-8);
+}
+
+@media (max-width: 63.24rem) {
+  .intro {
+    grid-template-columns: 1fr;
+    gap: var(--base-size-24);
+    padding-block: var(--base-size-48);
+  }
+
+  .description {
+    max-width: 36rem;
+  }
+
+  .instructions {
+    gap: var(--base-size-40);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .container {
+    padding-inline: var(--base-size-16);
+  }
+
+  .toolbar,
+  .galleryStatus {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--base-size-8);
+  }
+
+  .filter {
+    padding-inline: var(--base-size-12);
+  }
+
+  .imageGrid .imageCell {
+    padding: var(--base-size-16);
+  }
+
+  .imageAction {
+    position: static;
+    width: fit-content;
+    margin-block-start: var(--base-size-12);
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .cardDetails {
+    padding-block-start: var(--base-size-16);
+  }
+
+  .instructions {
+    grid-template-columns: 1fr;
+    padding-block: var(--base-size-64);
+  }
+}
