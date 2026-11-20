@@ -13,6 +13,10 @@ const site = JSON.parse(await readFile(resolve(root, "site.config.json"), "utf8"
 
 const entries = JSON.parse(await readFile(resolve(root, "images.json"), "utf8"));
 
+const designCount = new Set(entries.map((entry) => entry.studyId)).size;
+
+const retiredStudyIds = ["02", "05", "08"];
+
 const siteUrl = new URL(site.url);
 
 assert.equal(siteUrl.protocol, "https:", "The published site must use HTTPS.");
@@ -64,8 +68,12 @@ function palette(theme) {
   };
 }
 
+function imagePath(entry) {
+  return `images/${entry.imageFile}?v=${entry.sha256.slice(0, 12)}`;
+}
+
 function metadata({ entry, title, description, pagePath }) {
-  const imageUrl = new URL(`images/${entry.imageFile}`, siteUrl).href;
+  const imageUrl = new URL(imagePath(entry), siteUrl).href;
 
   return [
     ["property", "og:type", "website"],
@@ -110,7 +118,7 @@ function shareDocument(entry) {
 <title>${escapeHtml(title)}</title>
 <meta name="description" content="${escapeHtml(description)}">
 <link rel="canonical" href="${escapeHtml(new URL(entry.pagePath, siteUrl).href)}">
-<link rel="icon" type="image/png" href="../../images/${entry.imageFile}">
+<link rel="icon" type="image/png" href="../../${imagePath(entry)}">
 ${tags}
 <style>
   * { box-sizing: border-box; }
@@ -136,8 +144,8 @@ ${tags}
   <a class="back" href="${escapeHtml(siteUrl.pathname)}">Back to the image gallery</a>
   <h1>${escapeHtml(entry.name)} / ${entry.themeLabel}</h1>
   <p class="description">${escapeHtml(description)}</p>
-  <img src="../../images/${entry.imageFile}" width="${entry.width}" height="${entry.height}" alt="${escapeHtml(entry.alt)}">
-  <div class="caption"><span>${entry.width} &times; ${entry.height} &middot; PNG &middot; ${entry.themeLabel}</span><a href="../../images/${entry.imageFile}" download="${entry.imageFile}">Download PNG</a></div>
+  <img src="../../${imagePath(entry)}" width="${entry.width}" height="${entry.height}" alt="${escapeHtml(entry.alt)}">
+  <div class="caption"><span>${entry.width} &times; ${entry.height} &middot; PNG &middot; ${entry.themeLabel}</span><a href="../../${imagePath(entry)}" download="${entry.imageFile}">Download PNG</a></div>
   <details><summary>View this page's Open Graph tags</summary><pre>${escapeHtml(tags)}</pre></details>
   <p class="note">This page and its original PNG are public and work without JavaScript. Share this page's URL to test its preview. Different platforms may crop images or cache earlier previews; use their refresh or re-scrape controls when available.</p>
 </main>
@@ -147,10 +155,9 @@ ${tags}
 }
 
 function galleryDocument(entry) {
-  const title = "SEO image playground | 18 Open Graph image tests";
+  const title = `SEO image playground | ${entries.length} Open Graph image tests`;
 
-  const description =
-    "Nine designs in light and dark. Explore 18 public Open Graph image test pages.";
+  const description = `${designCount} designs in light and dark. Explore ${entries.length} public Open Graph image test pages.`;
 
   const links = entries
     .map(
@@ -168,18 +175,38 @@ function galleryDocument(entry) {
 <title>${title}</title>
 <meta name="description" content="${description}">
 <link rel="canonical" href="${escapeHtml(site.url)}">
-<link rel="icon" type="image/png" href="${escapeHtml(`${siteUrl.pathname}images/${entry.imageFile}`)}">
+<link rel="icon" type="image/png" href="${escapeHtml(`${siteUrl.pathname}${imagePath(entry)}`)}">
 ${metadata({ entry, title, description, pagePath: "" })}
 </head>
 <body>
 <div id="root">
   <main class="static-gallery">
     <h1>Social images, in every light.</h1>
-    <p>Nine designs. Two colorways. Open a test page and share its URL to see its social preview.</p>
+    <p>${designCount} designs. Two colorways. Open a test page and share its URL to see its social preview.</p>
     <ul>${links}</ul>
   </main>
 </div>
 <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
+`;
+}
+
+function retiredDocument() {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image replaced | SEO image playground</title>
+<link rel="canonical" href="${escapeHtml(site.url)}">
+<meta http-equiv="refresh" content="0; url=${escapeHtml(siteUrl.pathname)}">
+</head>
+<body>
+<main>
+  <h1>This image has been replaced</h1>
+  <p><a href="${escapeHtml(siteUrl.pathname)}">Explore the current images in the gallery.</a></p>
+</main>
 </body>
 </html>
 `;
@@ -226,8 +253,26 @@ async function dependencyNotices() {
   return notices.join("\n\n") + "\n";
 }
 
-assert.equal(entries.length, 18, "This playground requires nine light/dark pairs.");
-assert.equal(new Set(entries.map((entry) => entry.id)).size, 18, "Entry IDs must be unique.");
+assert.equal(entries.length, 12, "This playground requires six light/dark pairs.");
+assert.equal(
+  new Set(entries.map((entry) => entry.id)).size,
+  entries.length,
+  "Entry IDs must be unique.",
+);
+assert.ok(
+  entries.every((entry) => !retiredStudyIds.includes(entry.studyId)),
+  "Active designs must not use a retired study ID.",
+);
+for (const studyId of new Set(entries.map((entry) => entry.studyId))) {
+  assert.deepEqual(
+    entries
+      .filter((entry) => entry.studyId === studyId)
+      .map((entry) => entry.theme)
+      .sort(),
+    ["dark", "light"],
+    `${studyId} must have one light and one dark image.`,
+  );
+}
 
 for (const entry of entries) {
   assert.deepEqual(
@@ -268,11 +313,20 @@ for (const entry of entries) {
   await writeFile(resolve(destination, "index.html"), shareDocument(entry));
 }
 
+for (const studyId of retiredStudyIds) {
+  for (const theme of ["light", "dark"]) {
+    const destination = resolve(root, "public", theme, studyId);
+
+    await mkdir(destination, { recursive: true });
+    await writeFile(resolve(destination, "index.html"), retiredDocument());
+  }
+}
+
 const cover = entries.find((entry) => entry.id === site.galleryImageId);
 
 assert.ok(cover, "The gallery cover must be one of the recorded images.");
 await writeFile(resolve(root, "index.html"), galleryDocument(cover));
 await writeFile(resolve(root, "public/third-party-licenses.txt"), await dependencyNotices());
 process.stdout.write(
-  "Generated the public gallery, 18 static test pages, and dependency notices.\n",
+  `Generated the public gallery, ${entries.length} static test pages, legacy redirects, and dependency notices.\n`,
 );

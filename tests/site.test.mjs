@@ -34,7 +34,8 @@ function meta(html, attribute, name) {
 }
 
 function verifyMetadata(html, entry, pageUrl) {
-  const imageUrl = new URL(`images/${entry.imageFile}`, site.url).href;
+  const imageUrl = new URL(`images/${entry.imageFile}?v=${entry.sha256.slice(0, 12)}`, site.url)
+    .href;
 
   assert.equal(meta(html, "property", "og:type"), "website");
   assert.equal(meta(html, "property", "og:url"), pageUrl);
@@ -54,7 +55,7 @@ function verifyMetadata(html, entry, pageUrl) {
   assert.ok(html.includes(`<link rel="canonical" href="${pageUrl}">`));
 }
 
-test("the public manifest contains exactly nine light/dark pairs and no source-only fields", () => {
+test("the public manifest contains the six selected light/dark pairs and no source-only fields", () => {
   const fields = [
     "id",
     "studyId",
@@ -70,13 +71,11 @@ test("the public manifest contains exactly nine light/dark pairs and no source-o
     "sha256",
   ].sort();
 
-  assert.equal(entries.length, 18);
-  assert.equal(new Set(entries.map((entry) => entry.pagePath)).size, 18);
-  for (let number = 1; number <= 9; number++) {
+  assert.equal(entries.length, 12);
+  assert.equal(new Set(entries.map((entry) => entry.pagePath)).size, 12);
+  for (const studyId of ["01", "03", "04", "06", "07", "09"]) {
     for (const theme of ["light", "dark"]) {
-      const entry = entries.find(
-        (item) => item.id === `${theme}-${String(number).padStart(2, "0")}`,
-      );
+      const entry = entries.find((item) => item.id === `${theme}-${studyId}`);
 
       assert.ok(entry);
       assert.deepEqual(Object.keys(entry).sort(), fields);
@@ -108,7 +107,10 @@ for (const entry of entries) {
       html.includes(`href="${basePath}"`),
       "The gallery link must retain the project subpath.",
     );
-    assert.ok(html.includes(`src="../../images/${entry.imageFile}"`));
+    assert.ok(
+      html.includes(`src="../../images/${entry.imageFile}?v=${entry.sha256.slice(0, 12)}"`),
+      "The visible image must use the same content version as its Open Graph image.",
+    );
     assert.ok(html.includes(`download="${entry.imageFile}"`));
     assert.match(html, /<details><summary>View this page's Open Graph tags<\/summary>/);
     assert.doesNotMatch(html, /<script\b/i, "Share pages must not depend on JavaScript.");
@@ -116,13 +118,18 @@ for (const entry of entries) {
   });
 }
 
-test("the built gallery has initial HTML metadata and all 18 no-JavaScript links", async () => {
+test("the built gallery has current metadata and only the 12 active no-JavaScript links", async () => {
   const html = await readFile(resolve(root, "dist/index.html"), "utf8");
 
   const cover = entries.find((entry) => entry.id === site.galleryImageId);
 
   assert.ok(cover);
   verifyMetadata(html, cover, site.url);
+  assert.equal(
+    meta(html, "property", "og:title"),
+    "SEO image playground | 12 Open Graph image tests",
+  );
+  assert.equal((html.match(/<li><a href=/g) ?? []).length, 12);
   for (const entry of entries) {
     assert.ok(html.includes(`href="${basePath}${entry.pagePath}"`));
   }
@@ -132,10 +139,23 @@ test("the built gallery has initial HTML metadata and all 18 no-JavaScript links
   }
 });
 
-test("only the 18 expected image files are published", async () => {
+test("only the 12 current image files are published", async () => {
   const files = await readdir(resolve(root, "dist/images"));
 
   assert.deepEqual(files.sort(), entries.map((entry) => entry.imageFile).sort());
+});
+
+test("retired test-page URLs lead to the gallery without retaining old artwork", async () => {
+  for (const studyId of ["02", "05", "08"]) {
+    for (const theme of ["light", "dark"]) {
+      const html = await readFile(resolve(root, "dist", theme, studyId, "index.html"), "utf8");
+
+      assert.ok(html.includes(`<meta http-equiv="refresh" content="0; url=${basePath}">`));
+      assert.ok(html.includes(`<link rel="canonical" href="${site.url}">`));
+      assert.ok(html.includes(`<a href="${basePath}">`));
+      assert.doesNotMatch(html, /<img\b|<script\b|property="og:image"/i);
+    }
+  }
 });
 
 test("the bundled font and production dependencies retain their license notices", async () => {

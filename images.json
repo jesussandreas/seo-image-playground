@@ -5,13 +5,13 @@
     "name": "Alert shield",
     "theme": "light",
     "themeLabel": "Light",
-    "alt": "The GitHub wordmark above a blue alert shield and cross-shaped green, blue, and pink tiles. Light background.",
+    "alt": "The GitHub wordmark above a blue alert shield on a pyramid of green, blue, pink, and purple pixel tiles. Light background.",
     "imageFile": "light-01.png",
     "pagePath": "light/01/",
     "width": 1024,
     "height": 538,
-    "bytes": 72621,
-    "sha256": "cf9522591d329097459d7ad07645f2694689554785fa58838cfd6a4d7a4d4ffe"
+    "bytes": 79069,
+    "sha256": "810deadf33c4a89d81f344d71fed74bafbab0d4dee14cd38dd93dc77a9e14d56"
   },
   {
     "id": "dark-01",
@@ -19,41 +19,13 @@
     "name": "Alert shield",
     "theme": "dark",
     "themeLabel": "Dark",
-    "alt": "The GitHub wordmark above a blue alert shield and cross-shaped green, blue, and pink tiles. Dark background.",
+    "alt": "The GitHub wordmark above a blue alert shield on a pyramid of green, blue, pink, and purple pixel tiles. Dark background.",
     "imageFile": "dark-01.png",
     "pagePath": "dark/01/",
     "width": 1024,
     "height": 538,
-    "bytes": 65302,
-    "sha256": "8b54df4c3b34f75a835ff534447cd56915441891090def179566b4aa12862f64"
-  },
-  {
-    "id": "light-02",
-    "studyId": "02",
-    "name": "Octocat shield",
-    "theme": "light",
-    "themeLabel": "Light",
-    "alt": "The GitHub wordmark above an Octocat peeking behind a checked shield, over colorful pixel steps. Light background.",
-    "imageFile": "light-02.png",
-    "pagePath": "light/02/",
-    "width": 1024,
-    "height": 538,
-    "bytes": 82319,
-    "sha256": "f664a93777860e703ced2443673e079c630ded0fed12b7f6086e5677b1021409"
-  },
-  {
-    "id": "dark-02",
-    "studyId": "02",
-    "name": "Octocat shield",
-    "theme": "dark",
-    "themeLabel": "Dark",
-    "alt": "The GitHub wordmark above an Octocat peeking behind a checked shield, over colorful pixel steps. Dark background.",
-    "imageFile": "dark-02.png",
-    "pagePath": "dark/02/",
-    "width": 1024,
-    "height": 538,
-    "bytes": 86530,
-    "sha256": "103734b7c4c4d74cad3f3b612919c7a572c7e53b516899b4140aa6c0c9a5a54d"
+    "bytes": 76379,
+    "sha256": "1b0b8fe68fa36e2381b8d552a37d1089ff94c9d81d6665ee831595f0ab9b2dd9"
   },
   {
     "id": "light-03",
@@ -66,8 +38,8 @@
     "pagePath": "light/03/",
     "width": 1024,
     "height": 538,
-    "bytes": 62493,
-    "sha256": "ca71f38933a7134e6e5a4eba4cf67603a0ac54b5d82ed7a8867a45394ba7b4e4"
+    "bytes": 72060,
+    "sha256": "67c65405d0e9bd54bc9b01665fac99e059f420c33033b433fd7940150272d36d"
   },
   {
     "id": "dark-03",
@@ -80,8 +52,8 @@
     "pagePath": "dark/03/",
     "width": 1024,
     "height": 538,
-    "bytes": 57178,
-    "sha256": "408411ea926d50947d5bc790aca39678e8935f90be6b460b1c6d10c1e62b01cd"
+    "bytes": 69077,
+    "sha256": "86ee2a8ed79d72f6e5c81c90e1583327753e48ff81eb951d6447afc03fef833e"
   },
   {
     "id": "light-04",
@@ -108,36 +80,8 @@
     "pagePath": "dark/04/",
     "width": 1024,
     "height": 538,
-    "bytes": 57272,
-    "sha256": "6da20335f9ad1cbd25cae35cf9899c31a2ea4fe721731c4e3ab34c0a29d1e750"
-  },
-  {
-    "id": "light-05",
-    "studyId": "05",
-    "name": "Octocat profile",
-    "theme": "light",
-    "themeLabel": "Light",
-    "alt": "The GitHub wordmark above a side-profile Octocat walking across a row of colorful pixel tiles. Light background.",
-    "imageFile": "light-05.png",
-    "pagePath": "light/05/",
-    "width": 1024,
-    "height": 538,
-    "bytes": 44269,
-    "sha256": "52def44611a15102ffa663f1f33208f8e7a11d1697bfede1bb0e4f373d07139a"
-  },
-  {
-    "id": "dark-05",
-    "studyId": "05",
-    "name": "Octocat profile",
-    "theme": "dark",
-    "themeLabel": "Dark",
-    "alt": "The GitHub wordmark above a side-profile Octocat walking across a row of colorful pixel tiles. Dark background.",
-    "imageFile": "dark-05.png",
-    "pagePath": "dark/05/",
-    "width": 1024,
-    "height": 538,
-    "bytes": 64004,
-    "sha256": "57ad148e7c5203e3f183a74292888f80696039e1c0c2a92e510bc59d536ecc1b"
+    "bytes": 57289,
+    "sha256": "58ce19e83104e33c5450fbe5ef3bdf65999f461f790f3b8652d7ff139737ffa5"
   },
   {
     "id": "light-06",
@@ -150,8 +94,8 @@
     "pagePath": "light/06/",
     "width": 1024,
     "height": 538,
-    "bytes": 76001,
-    "sha256": "8fba6907150f91e356ebbf4ccba99d89156529153068c5f4d39a0c6461d40401"
+    "bytes": 82673,
+    "sha256": "c16044d33912e6718ee6d4f7cad2b582cd7c4b33543dc2671a9db1ae281f7b27"
   },
   {
     "id": "dark-06",
@@ -164,8 +108,8 @@
     "pagePath": "dark/06/",
     "width": 1024,
     "height": 538,
-    "bytes": 88681,
-    "sha256": "237660fb0c8a91bff0c2ee75eae3e2753166243a51cd7d22514de448f4c4f7d5"
+    "bytes": 94436,
+    "sha256": "883aab635980efb60d44ef8904428eb2e471895b476c36fffa2f73a568211871"
   },
   {
     "id": "light-07",
@@ -192,36 +136,8 @@
     "pagePath": "dark/07/",
     "width": 1024,
     "height": 538,
-    "bytes": 68213,
-    "sha256": "f5cbbd02464a6cb1dd4e4469aec4992753314f9d55a767afd91b7622b06c9c65"
-  },
-  {
-    "id": "light-08",
-    "studyId": "08",
-    "name": "Octocat steps",
-    "theme": "light",
-    "themeLabel": "Light",
-    "alt": "The GitHub wordmark above a three-quarter-view Octocat walking up colorful pixel steps. Light background.",
-    "imageFile": "light-08.png",
-    "pagePath": "light/08/",
-    "width": 1024,
-    "height": 538,
-    "bytes": 57218,
-    "sha256": "679d6665236f1f9f5fda308e6d5c48ab7cebcd94bf778ed144a32c9a1ed02ace"
-  },
-  {
-    "id": "dark-08",
-    "studyId": "08",
-    "name": "Octocat steps",
-    "theme": "dark",
-    "themeLabel": "Dark",
-    "alt": "The GitHub wordmark above a three-quarter-view Octocat walking up colorful pixel steps. Dark background.",
-    "imageFile": "dark-08.png",
-    "pagePath": "dark/08/",
-    "width": 1024,
-    "height": 538,
-    "bytes": 69730,
-    "sha256": "32989908d31a90f79504d46b9c59a5424dd5b8565fffa4efbda6eecc10e5d9f9"
+    "bytes": 67054,
+    "sha256": "97446ab08fc1f99b9ddedb1021b411c5489fee49c5548198668c9c6b2ea2d520"
   },
   {
     "id": "light-09",
@@ -234,8 +150,8 @@
     "pagePath": "light/09/",
     "width": 1024,
     "height": 538,
-    "bytes": 51913,
-    "sha256": "10b031149f739b1f51742d753336f84ea098b539e92c56aa737907b92ea94ba7"
+    "bytes": 59346,
+    "sha256": "cd0f7302c89afcd6edcd1afbdb578ee4714c4348ee7dcfa49d8c65b915a8d2ed"
   },
   {
     "id": "dark-09",
@@ -248,7 +164,7 @@
     "pagePath": "dark/09/",
     "width": 1024,
     "height": 538,
-    "bytes": 63902,
-    "sha256": "8cd43e01da654b64b4d2972cf605a99e4b309ff01382fc77fedb8e5357c96346"
+    "bytes": 69707,
+    "sha256": "62f2a67019ffde5e7a7c36769e88072b739aa2060b23be3b458809b9f87e06a5"
   }
 ]

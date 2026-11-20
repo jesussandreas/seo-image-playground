@@ -34,12 +34,14 @@ const filters: { id: ThemeFilter; label: string; count: number }[] = [
 
 const imageSizes = [...new Set(entries.map((entry) => `${entry.width} \u00d7 ${entry.height} px`))];
 
+const designCount = new Set(entries.map((entry) => entry.studyId)).size;
+
 function shareUrl(entry: Entry) {
   return `${basePath}${entry.pagePath}`;
 }
 
 function imageUrl(entry: Entry) {
-  return `${basePath}images/${entry.imageFile}`;
+  return `${basePath}images/${entry.imageFile}?v=${entry.sha256.slice(0, 12)}`;
 }
 
 export default function App() {
@@ -99,7 +101,8 @@ export default function App() {
             </Heading>
             <div className={styles.introAside}>
               <Text as="p" size="300" variant="muted" className={styles.description}>
-                Nine designs. Two colorways. Copy a test page's link to try its Open Graph preview.
+                {designCount} designs. Two colorways. Copy a test page's link to try its Open Graph
+                preview.
               </Text>
               <Text as="p" size="100" variant="muted" className={styles.specification}>
                 <span>{entries.length} public entry points</span>

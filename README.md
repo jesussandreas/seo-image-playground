@@ -2,7 +2,7 @@
 
 [Open the public gallery](https://jesussandreas.github.io/seo-image-playground/).
 
-Nine designs, each in light and dark. All 18 test pages and PNGs are public, so
+Six designs, each in light and dark. All 12 test pages and PNGs are public, so
 social crawlers can fetch them without signing in.
 
 Copy a **test-page URL**, not an image URL, into a message, post, or preview
@@ -14,6 +14,11 @@ JavaScript is disabled.
 The PNGs are unchanged 1024 by 538 exports of 1200 by 630 source frames. Their
 dimensions and SHA-256 hashes are recorded in `images.json`. Descriptive labels
 identify the artwork; they are not product announcements.
+
+The current set includes Alert shield, Check shield, Duck steps, Octocat echoes,
+Duck pyramid, and Octocat portrait. Their original test-page URLs are unchanged.
+Links for the retired Octocat shield, Octocat profile, and Octocat steps designs
+(`02`, `05`, and `08` in either colorway) redirect to the gallery.
 
 ## Run locally
 
@@ -41,6 +46,9 @@ Replace its PNG in `public/images/`, update its dimensions, byte count, and
 SHA-256 in `images.json`, then run `npm run verify`. The generator does not
 redraw, crop, or resize images. The static pages, main-page metadata, and
 fallback links are generated from this manifest.
+
+Image URLs include a version derived from the PNG's SHA-256, so changed artwork
+gets a fresh image URL while its test-page URL stays stable.
 
 If you change the host or repository name, update `site.config.json` before
 building. Both the gallery's asset base and every absolute Open Graph URL use
